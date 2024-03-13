@@ -1,10 +1,22 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+// 厳格にチェックする構文
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+
+// 変数はパスカルケース
+const App = () => {
+  return (
+    <>
+      <h1>やっほそ！</h1>
+      <p>およぉ</p>
+    </>
+  );
+};
+
+root.render(
+  <StrictMode>
     <App />
-  </React.StrictMode>,
-)
+  </StrictMode>
+);
