@@ -5,7 +5,7 @@ import { ColorfulMessage } from './components/ColorfulMessage';
 // 変数はパスカルケース
 const style = {
   color: "green",
-  fontSize: "56px",
+  fontSize: "10px",
 };
 
 export const App = () => {
@@ -13,7 +13,8 @@ export const App = () => {
   return (
     <>
       <h1 style = {style}>やっほそ！</h1>
-      <ColorfulMessage />
+      {/* color,messageというプロップスを渡す */}
+      <ColorfulMessage color="pink">やあ、君だね！</ColorfulMessage>
       <p>およぉ</p>
       <button onClick={onClickButton}>ボタン</button>
     </>
