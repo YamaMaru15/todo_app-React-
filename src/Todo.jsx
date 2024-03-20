@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import './styles.css'
+import { InputTodo } from "./components/InputTodo";
+import { IncompleteTodos } from "./components/IncompleteTodos";
+import { CompleteTodos } from "./components/CompleteTodos";
 
 export const Todo = () => {
   const [todoText, setTodoText] = useState("");
@@ -54,41 +57,30 @@ export const Todo = () => {
       setIncompleteTodos(newIncompleteTodos);
     }
 
+    const isMaxLinitIncompleteTodos = incompleteTodos.length >= 5;
+
   return (
     <>
-      <div className="input-area">
-        <input value={todoText} placeholder="TODOを入力" onChange= {onchangeTodoText} />
-        <button onClick={onClickAdd}>追加</button>
-      </div>
-      <div className="incomplete-area">
-        <p className="title">未完了のTODO</p>
-        <ul>
-          {incompleteTodos.map((todo, index) => (
-            // 一意のキーを指定
-              <li key={todo}>
-                <div className="list-row">
-                  <p className="todo-item">{todo}</p>
-                  <button onClick={() => onClickComplete(index)}>完了</button>
-                  {/* onClickは関数を渡す.関数の中身として渡す記述の仕方をする。(処理が実行されてしまうため) */}
-                  <button onClick={() => onClickDelete(index)}>削除</button>
-                </div>
-              </li>
-          ))}
-        </ul>
-      </div>
-      <div className="complete-area">
-        <p className="title">完了のTODO</p>
-        <ul>
-          {completeTodos.map((todo, index) => (
-            <li key={todo}>
-              <div className="list-row">
-                <p className="todo-item">{todo}</p>
-                <button onClick={() => onClickBack(index)}>戻す</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <InputTodo 
+        todoText={todoText} 
+        onChange={onchangeTodoText} 
+        onClick={onClickAdd}
+        disabled={isMaxLinitIncompleteTodos}
+      />
+      {isMaxLinitIncompleteTodos && (
+      <p style={{color : "red"}}>
+        タスク上限5個　たまりすぎワロタ
+        </p>
+      )}
+      <IncompleteTodos
+        todos={incompleteTodos}
+        onClickComplete={onClickComplete}
+        onClickDelete={onClickDelete}
+      />
+      <CompleteTodos 
+        todos={completeTodos}
+        onClickBack={onClickBack}
+      />
     </>
   );
 };
